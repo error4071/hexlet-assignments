@@ -1,26 +1,32 @@
 package exercise;
 
-import java.util.HashMap;
 import java.util.Map;
+import java.util.HashMap;
 
 public class App {
     public static Map<String, Integer> getWordCount(String sentence) {
+        String[] splitSentence = sentence.split(" ");
+        Map<String, Integer> wordCount = new HashMap<>();
 
-        String[] splitSentence = sentence.split("");
-
-        Map<String, Integer> wordsCount = new HashMap<>();
-
-        for (String x : splitSentence) {
-            if (!wordsCount.containsKey(x)) {
-                wordsCount.put(x, 0);
+        for (String key : splitSentence) {
+            if (sentence.isEmpty()) {
+                return new HashMap<>();
+            } else if (!wordCount.containsKey(key)) {
+                wordCount.put(key, 0);
             }
-            return wordsCount;
+            wordCount.put(key, wordCount.get(key) + 1);
         }
+        return wordCount;
     }
 
-        private static String toString(Map<String, Integer> wordsCount) {
-            for (Map.Entry<String, Integer> entry: wordsCount.entrySet()) {
-                System.out.print("{  " + entry.getValue() + ":  " + entry.getKey() + "  }");
-            }
+        public static String toString(Map<String, Integer> wordCount) {
+
+            if (wordCount.isEmpty()) {
+            return "{}";
+                }
+            StringBuilder result = new StringBuilder();
+            for (Map.Entry<String, Integer> entry : wordCount.entrySet())
+                result.append("\n" + "  ").append(entry.getKey()).append(": ").append(entry.getValue().toString());
+            return "{" + result + "\n}";
         }
     }
