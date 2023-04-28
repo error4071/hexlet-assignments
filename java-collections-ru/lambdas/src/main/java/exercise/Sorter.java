@@ -15,6 +15,5 @@ public class Sorter {
                 .sorted((user1, user2) -> user1.get("birthday").compareTo(user2.get("birthday")))
                 .map(user -> user.get("name"))
                 .collect(Collectors.toList());
-       
     }
 }

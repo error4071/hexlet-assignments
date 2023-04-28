@@ -2,10 +2,22 @@ package exercise;
 
 import java.util.Arrays;
 
-public class App {
-    public static String enlargeArrayImage(String[][] image) {
+class App {
+    public static String[] duplicateValues(String[] items) {
 
-        System.out.println(Arrays.deepToString(image));
-        return null;
+        return Arrays.stream(items)
+                .flatMap(item -> Arrays.stream(new String[] {item, item}))
+                .toArray(String[]::new);
+    }
+
+    public static String[][] enlargeArrayImage(String[][] image) {
+
+        String[][] horizontalyStretched = Arrays.stream(image)
+                .map(App::duplicateValues)
+                .toArray(String[][]::new);
+
+        return Arrays.stream(horizontalyStretched)
+                .flatMap(item -> Arrays.stream(new String[][] {item, item}))
+                .toArray(String[][]::new);
     }
 }
