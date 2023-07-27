@@ -11,18 +11,9 @@ public class Point {
     }
 
     public int getX() {
-        return x;
+        return this.x;
     }
-
-    public void setX(int getX) {
-        this.x = x;
-    }
-
     public int getY() {
-        return y;
-    }
-
-    public void setGetY(int getY) {
-        this.y = y;
+        return this.y;
     }
 }
