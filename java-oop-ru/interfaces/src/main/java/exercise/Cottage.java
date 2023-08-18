@@ -10,14 +10,14 @@ public class Cottage implements Home {
     }
 
     public double getArea() {
-        return this.area + floorCount;
+        return this.area;
     }
 
     public String toString() {
         return String.format("%d этажный коттедж площадью %s метров", floorCount, getArea());
     }
     public int compareTo(Home another) {
-        if (this.getArea() == another.getArea()) {
+        if (area == another.getArea()) {
             return 0;
         }
         if (this.getArea() > another.getArea()) {
