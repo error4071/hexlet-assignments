@@ -12,7 +12,7 @@ public class Flat implements Home {
     }
 
     public double getArea() {
-        return area + balconyArea;
+        return this.area + balconyArea;
     }
 
     public String toString() {

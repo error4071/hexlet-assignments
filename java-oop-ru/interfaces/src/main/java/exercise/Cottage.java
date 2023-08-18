@@ -10,7 +10,7 @@ public class Cottage implements Home {
     }
 
     public double getArea() {
-        return area + floorCount;
+        return this.area + floorCount;
     }
 
     public String toString() {
