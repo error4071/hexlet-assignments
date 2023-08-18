@@ -16,11 +16,7 @@ public class Flat implements Home {
     }
 
     public String toString() {
-        return "Квартира " +
-                "площадью " + getArea() +
-                ", находтся на " + floor +
-                "этаже" +
-                '}';
+        return String.format("Квартира площадью %s метров на %d этаже", getArea(), floor);
     }
 
     public int compareTo(Home another) {
