@@ -12,3 +12,5 @@ public class App {
         entries.forEach(entry -> storage.set(entry.getKey(), entry.getValue()));
     }
 }
+
+// END
