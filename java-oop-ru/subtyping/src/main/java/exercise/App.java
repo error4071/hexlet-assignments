@@ -9,7 +9,7 @@ public class App {
         Map<String, String> data = storage.toMap();
         Set<Entry<String, String>> entries = data.entrySet();
         entries.forEach(entry -> storage.unset(entry.getKey()));
-        entries.forEach(entry -> storage.set(entry.getKey(), entry.getValue()));
+        entries.forEach(entry -> storage.set(entry.getValue(), entry.getKey()));
     }
 }
 
