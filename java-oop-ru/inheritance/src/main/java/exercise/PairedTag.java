@@ -20,6 +20,6 @@ public class PairedTag extends Tag {
         String value = children.stream()
                 .map(Object::toString)
                 .collect(Collectors.joining(""));
-        return String.format("<%%>%%</%>", tagName, attributes, body, value, tagName);
+        return String.format("<%s%s>%s%s</%s>", tagName, attributes, body, value, tagName);
     }
 }
