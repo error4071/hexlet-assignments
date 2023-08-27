@@ -3,13 +3,13 @@ package exercise;
 import java.awt.font.ShapeGraphicAttribute;
 import java.util.Map;
 
-public class SingleTag extends Tag {
-    public SingleTag(String tagName, Map<String, String> attributes) {
-        super(tagName, attributes);
+class SingleTag extends Tag {
+
+    SingleTag(String name, Map<String, String> attributes) {
+        super(name, attributes);
     }
 
-    @Override
     public String toString() {
-        return String.format("<%%s>", getTagName(), stringifyAttributes());
+        return String.format("<%s%s>", getName(), stringifyAttributes());
     }
 }

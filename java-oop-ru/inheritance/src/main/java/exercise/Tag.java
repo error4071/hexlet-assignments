@@ -3,12 +3,13 @@ package exercise;
 import java.util.stream.Collectors;
 import java.util.Map;
 
-public class Tag {
-    private String tagName;
+class Tag {
+
+    private String name;
     private Map<String, String> attributes;
 
-    public Tag(String tagName, Map<String, String> attributes) {
-        this.tagName = tagName;
+    Tag(String name, Map<String, String> attributes) {
+        this.name = name;
         this.attributes = attributes;
     }
 
@@ -16,12 +17,12 @@ public class Tag {
         return attributes.keySet().stream()
                 .map(key -> {
                     String value = attributes.get(key);
-                    return String.format("%s=\"%\"", key, value);
+                    return String.format(" %s=\"%s\"", key, value);
                 })
                 .collect(Collectors.joining(""));
     }
 
-    public String getTagName() {
-        return tagName;
+    public String getName() {
+        return name;
     }
 }
