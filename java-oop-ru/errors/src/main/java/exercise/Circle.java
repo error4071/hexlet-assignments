@@ -13,11 +13,14 @@ public class Circle {
     }
 
     public double getSquare() {
-        return Math.PI * radius * radius;
-    }
-    public void validateRadius(int radius) throws NegativeRadiusException {
+        if (radius > 0) {
+            return Math.PI * radius * radius;
+        }
         if (radius < 0) {
             throw new NegativeRadiusException();
         }
+        return radius;
     }
 }
+
+
