@@ -7,7 +7,7 @@ import static org.assertj.core.api.Assertions.within;
 
 class CircleTest {
     @Test
-    void testException() {
+    void testException() throws Exception {
         Circle circle = new Circle(new Point(1, 2), -2);
         assertThatThrownBy(() -> {
             circle.getSquare();

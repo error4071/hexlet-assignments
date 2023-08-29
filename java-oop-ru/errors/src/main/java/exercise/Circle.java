@@ -3,15 +3,15 @@ package exercise;
 public class Circle {
     public int radius;
 
-
     public Circle(Point point, int radius) {
         this.radius = radius;
-        point = point;
+        Point point1 = point;
     }
 
     public int getRadius() {
         return radius;
     }
+
     public double getSquare() {
         return Math.PI * radius * radius;
     }
