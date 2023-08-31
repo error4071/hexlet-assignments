@@ -1,0 +1,46 @@
+plugins {
+  id 'java'
+  id 'com.adarshr.test-logger' version '2.1.1'
+}
+
+repositories {
+  mavenCentral()
+}
+
+dependencies {
+  compileOnly 'org.projectlombok:lombok:1.18.20'
+	annotationProcessor 'org.projectlombok:lombok:1.18.20'
+	testCompileOnly 'org.projectlombok:lombok:1.18.20'
+	testAnnotationProcessor 'org.projectlombok:lombok:1.18.20'
+  testRuntimeOnly 'org.junit.jupiter:junit-jupiter-engine:5.8.0-M1'
+  testImplementation 'org.junit.jupiter:junit-jupiter-params:5.8.0-M1'
+  testImplementation 'org.assertj:assertj-core:3.19.0'
+
+  implementation 'com.fasterxml.jackson.core:jackson-core:2.8.8'
+  implementation 'com.fasterxml.jackson.core:jackson-annotations:2.8.8'
+  implementation 'com.fasterxml.jackson.core:jackson-databind:2.8.8'
+
+  implementation 'at.yawk.logging:logging-util:1.0'
+  implementation 'net.javacrumbs.jadler-jdk:jadler-jdk:1.1.2'
+  implementation 'net.javacrumbs.jadler-jdk:jadler-jdk:1.1.2'
+  implementation 'org.junit.jupiter:junit-jupiter:5.8.1'
+  testImplementation platform('org.junit:junit-bom:5.9.1')
+  testImplementation 'org.junit.jupiter:junit-jupiter'
+  implementation 'info.picocli:picocli:4.7.3'
+  annotationProcessor 'info.picocli:picocli-codegen:4.7.3'
+  implementation 'com.fasterxml.jackson.core:jackson-databind:2.10.0'
+  implementation 'com.fasterxml.jackson.dataformat:jackson-dataformat-yaml:2.14.2'
+  implementation 'org.assertj:assertj-core-java8:1.0.0m1'
+}
+
+test {
+  useJUnitPlatform()
+}
+
+testlogger {
+  showStandardStreams = true
+}
+
+tasks.withType(JavaCompile) {
+  options.encoding = "UTF-8"
+}
