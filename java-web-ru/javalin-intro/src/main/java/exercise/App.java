@@ -3,7 +3,6 @@ package exercise;
 import io.javalin.Javalin;
 
 public final class App {
-
     public static Javalin getApp() {
 
         var app = Javalin.create(config -> {
@@ -11,7 +10,6 @@ public final class App {
         });
 
         app.get("/welcome", ctx -> ctx.result("Welcome to Javalin!"));
-
         return app;
     }
 
@@ -20,4 +18,3 @@ public final class App {
         app.start(7070);
     }
 }
-
