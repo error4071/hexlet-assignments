@@ -9,7 +9,7 @@ public final class App {
             config.plugins.enableDevLogging();
         });
 
-        app.get("/welcome", ctx -> ctx.result("Welcome to Javalin!"));
+        app.get("/welcome", ctx -> ctx.result("Welcome to Hexlet!"));
         return app;
     }
 
