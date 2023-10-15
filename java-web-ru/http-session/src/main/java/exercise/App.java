@@ -15,8 +15,11 @@ public final class App {
         });
 
         app.get("/users", ctx -> {
-            var userNumber = ctx.queryParamAsClass("users", Integer.class).getOrDefault(0);
-            ctx.json(Data.getUsers());
+            var page = ctx.queryParamAsClass("page", Integer.class).getOrDefault(1);
+            var per = ctx.queryParamAsClass("per", Integer.class).getOrDefault(5);
+            var offset = (page - 1) * per;
+            List<Map<String, String>> sliceOfUsers = USERS.subList(offset, offset + per);
+            ctx.json(sliceOfUsers);
         });
 
         return app;
