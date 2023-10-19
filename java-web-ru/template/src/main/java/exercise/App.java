@@ -10,7 +10,6 @@ import java.util.Collections;
 
 public final class App {
 
-    // Каждый пользователь представлен объектом класса User
     private static final List<User> USERS = Data.getUsers();
 
     public static Javalin getApp() {
