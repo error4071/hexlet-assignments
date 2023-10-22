@@ -1,10 +1,13 @@
 package exercise;
 
-import static org.assertj.core.api.Assertions.assertThat;
-
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.AfterAll;
 import org.junit.jupiter.api.Test;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.hamcrest.MatcherAssert.assertThat;
+import static org.hamcrest.CoreMatchers.containsString;
+import static org.hamcrest.CoreMatchers.is;
+import static org.hamcrest.CoreMatchers.not;
 import kong.unirest.HttpResponse;
 import kong.unirest.Unirest;
 import io.javalin.Javalin;
@@ -30,7 +33,7 @@ class AppTest {
     @Test
     void testRootPage() throws Exception {
         HttpResponse<String> response = Unirest.get(baseUrl + "/").asString();
-        assertThat(response.getStatus()).isEqualTo(200);
+        assertEquals(200, response.getStatus());
     }
 
     @Test
@@ -38,11 +41,11 @@ class AppTest {
         HttpResponse<String> response = Unirest.get(baseUrl + "/posts").asString();
         String body = response.getBody();
 
-        assertThat(response.getStatus()).isEqualTo(200);
-        assertThat(body).contains("Sleep the Brave");
-        assertThat(body).contains("This Side of Paradise");
-        assertThat(body).doesNotContain("Little Hands Clapping");
-        assertThat(body).contains("?page=2");
+        assertEquals(200, response.getStatus());
+        assertThat(body, containsString("Ring of Bright Water"));
+        assertThat(body, containsString("Sleep the Brave"));
+        assertThat(body, is(not(containsString("The Way of All Flesh"))));
+        assertThat(body, containsString("?page=2"));
     }
 
     @Test
@@ -50,29 +53,28 @@ class AppTest {
         HttpResponse<String> response = Unirest.get(baseUrl + "/posts?page=2").asString();
         String body = response.getBody();
 
-        assertThat(response.getStatus()).isEqualTo(200);
-        assertThat(body).contains("Little Hands Clapping");
-        assertThat(body).contains("Moab Is My Washpot");
-        assertThat(body).doesNotContain("This Side of Paradise");
-        assertThat(body).doesNotContain("To Say Nothing of the Dog");
-        assertThat(body).contains("?page=1");
-        assertThat(body).contains("?page=3");
+        assertEquals(200, response.getStatus());
+        assertThat(body, containsString("The Way of All Flesh"));
+        assertThat(body, containsString("That Hideous Strength"));
+        assertThat(body, is(not(containsString("The Green Bay Tree"))));
+        assertThat(body, is(not(containsString("Time of our Darkness"))));
+        assertThat(body, containsString("?page=1"));
+        assertThat(body, containsString("?page=3"));
     }
 
     @Test
     void testShowArticle() throws Exception {
-        HttpResponse<String> response = Unirest.get(baseUrl + "/posts/2").asString();
+        HttpResponse<String> response = Unirest.get(baseUrl + "/posts/9").asString();
         String body = response.getBody();
 
-        assertThat(response.getStatus()).isEqualTo(200);
-        assertThat(body).contains("No Country for Old Men");
-        assertThat(body).contains("Ut sint autem.");
+        assertEquals(200, response.getStatus());
+        assertThat(body, containsString("Ring of Bright Water"));
+        assertThat(body, containsString("Iste veniam ullam rerum facere."));
     }
 
     @Test
     void testPostNotFound() throws Exception {
         HttpResponse<String> response = Unirest.get(baseUrl + "/posts/999").asString();
-        assertThat(response.getStatus()).isEqualTo(500);
+        assertEquals(404, response.getStatus());
     }
-
 }
