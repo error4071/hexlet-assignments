@@ -2,10 +2,11 @@ package exercise.util;
 
 import java.util.Random;
 import java.util.Locale;
+
+import exercise.model.Post;
 import net.datafaker.Faker;
 import java.util.List;
 import java.util.ArrayList;
-import exercise.model.Post;
 
 public class Generator {
     private static final int ITEMS_COUNT = 30;
