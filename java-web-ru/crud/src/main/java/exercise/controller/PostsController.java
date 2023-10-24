@@ -24,7 +24,7 @@ public class PostsController {
         } catch (IndexOutOfBoundsException e) {
             sliceOfPosts = new ArrayList<>();
         }
-    ctx.render("posts/index.jte", Collections.singletonMap("page", sliceOfPosts));
+    ctx.render("posts/index.jte", Collections.singletonMap("page", posts));
     }
 
     public static void show(Context ctx) {
