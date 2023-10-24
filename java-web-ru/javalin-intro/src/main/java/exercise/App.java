@@ -3,6 +3,7 @@ package exercise;
 import io.javalin.Javalin;
 
 public final class App {
+
     public static Javalin getApp() {
 
         var app = Javalin.create(config -> {
