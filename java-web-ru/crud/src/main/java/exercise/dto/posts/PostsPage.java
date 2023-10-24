@@ -12,6 +12,7 @@ import lombok.Getter;
 @Getter
 public class PostsPage {
     private List<Post> posts;
-    private String term;
+    private int page;
 }
+
 // END
