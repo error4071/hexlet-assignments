@@ -1,22 +1,21 @@
 package exercise;
 
-import io.javalin.Javalin;
-
-import java.util.ArrayList;
 import java.util.List;
+import io.javalin.Javalin;
 
 public final class App {
 
     public static Javalin getApp() {
 
         var app = Javalin.create(config -> {
+
             config.plugins.enableDevLogging();
         });
 
         List<String> phones = Data.getPhones();
-        app.get("/phones", ctx -> ctx.json(phones));
-
         List<String> domains = Data.getDomains();
+
+        app.get("/phones", ctx -> ctx.json(phones));
         app.get("/domains", ctx -> ctx.json(domains));
 
         return app;
