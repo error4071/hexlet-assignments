@@ -3,6 +3,7 @@ package exercise.repository;
 import java.util.List;
 import exercise.model.Post;
 import exercise.util.Generator;
+import java.util.Optional;
 
 public class PostRepository {
     private static List<Post> entities = Generator.getPosts();
@@ -19,19 +20,20 @@ public class PostRepository {
         return posts;
     }
 
-    public static Post find(Long id) {
+    public static Optional<Post> find(Long id) {
         var post = entities.stream()
-                .filter(entity -> entity.getId() == id)
+                .filter(entity -> entity.getId().equals(id))
                 .findAny()
                 .orElse(null);
-        return post;
+        return Optional.of(post);
     }
 
-    public static Post findByName(String name) {
-        return entities.stream()
+    public static Optional<Post> findByName(String name) {
+        var post = entities.stream()
                 .filter(entity -> entity.getName().equals(name))
                 .findAny()
                 .orElse(null);
+        return Optional.of(post);
     }
 
     public static boolean existsByName(String name) {

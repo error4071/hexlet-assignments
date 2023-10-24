@@ -7,7 +7,6 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 
 
-// BEGIN
 @AllArgsConstructor
 @Getter
 public class PostsPage {
@@ -15,4 +14,4 @@ public class PostsPage {
     private int page;
 }
 
-// END
+

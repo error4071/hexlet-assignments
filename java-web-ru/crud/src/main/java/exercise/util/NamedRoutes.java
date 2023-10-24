@@ -6,7 +6,6 @@ public class NamedRoutes {
         return "/";
     }
 
-    // BEGIN
     public static String postsPath() {
         return "/posts";
     }
@@ -18,5 +17,4 @@ public class NamedRoutes {
     public static String postPath(String id) {
         return "/posts/" + id;
     }
-    }
-    // END
+}
