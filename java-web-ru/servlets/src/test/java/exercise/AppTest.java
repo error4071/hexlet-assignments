@@ -25,7 +25,7 @@ class AppTest {
     @Test
     void testHelloPage() {
         var userName = "user1";
-        var response = Unirest.get(baseUrl + "/hello" + userName).asString();
+        var response = Unirest.get(baseUrl + "/hello?name=" + userName).asString();
         assertThat(response.getStatus()).isEqualTo(200);
         assertThat(response.getBody()).contains("Hello, " + userName + "!");
     }
