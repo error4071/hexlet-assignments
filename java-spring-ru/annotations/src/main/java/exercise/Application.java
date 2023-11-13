@@ -13,8 +13,10 @@ public class Application {
         for (Method method : Address.class.getDeclaredMethods()) {
             if (method.isAnnotationPresent(Inspect.class)) {
                 String methodName = StringUtils.capitalize(method.getName());
-                String typeName = method.getReturnType().toString().split("\\.").length > 1 ?
-                        method.getReturnType().toString().split("\\.")[2] :
+                String typeName = method.getReturnType().toString().split("\\.")
+                        .length > 1 ?
+                        method.getReturnType().toString()
+                                .split("\\.")[2] :
                         method.getReturnType().toString();
                 System.out.println("Method get" + methodName + " returns a value of type " + typeName);
             }
