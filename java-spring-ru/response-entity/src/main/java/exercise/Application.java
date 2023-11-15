@@ -30,10 +30,10 @@ public class Application {
 
     @GetMapping("/posts")
     public ResponseEntity<List<Post>> index(@RequestParam(defaultValue = "10") Integer limit) {
-        var result = posts.stream().limit(limit).toList();
+        var result = posts;
 
         return ResponseEntity.ok()
-                .header("X-Total-Count", String.valueOf(posts.size()))
+                .header("X-Total-Count", String.valueOf(result))
                 .body(result);
     }
 
@@ -70,8 +70,10 @@ public class Application {
             return ResponseEntity.status(HttpStatus.NO_CONTENT).body(post);
         }
 
-            post.setBody(post.getBody());
-            post.setTitle(post.getTitle());
+            maybePost.get().setBody(post.getBody());
+            maybePost.get().setTitle(post.getTitle());
+
+            posts.add(maybePost.get());
 
         return ResponseEntity.ok().body(maybePost.get());
     }
