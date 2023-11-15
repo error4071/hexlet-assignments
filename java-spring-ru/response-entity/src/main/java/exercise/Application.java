@@ -61,21 +61,26 @@ public class Application {
     }
 
     @PutMapping("/posts/{id}")
-    public ResponseEntity<Post> update(@PathVariable String id, @RequestBody Post post) {
+    public ResponseEntity<Post> update(@PathVariable String id, @RequestBody Post data) {
         var maybePost = posts.stream()
-                .filter(p -> p.getBody().equals(id))
+                .filter(p -> p.getId()
+                        .equals(id))
                 .findFirst();
 
-        if (maybePost.isEmpty()) {
-            return ResponseEntity.status(HttpStatus.NO_CONTENT).body(post);
+        if (maybePost.isPresent()) {
+            var post = maybePost.get();
+            post.setId(post.getId());
+            post.setBody(post.getBody());
+            post.setTitle(post.getTitle());
+
+            return ResponseEntity.ok()
+                    .body(maybePost.get());
         }
 
-            maybePost.get().setBody(post.getBody());
-            maybePost.get().setTitle(post.getTitle());
-
-            posts.add(maybePost.get());
-
-        return ResponseEntity.ok().body(maybePost.get());
+        if (maybePost.isEmpty()) {
+            return ResponseEntity.status(HttpStatus.NO_CONTENT)
+                    .body(data);
+        }
     }
 
     @DeleteMapping("/posts/{id}")
