@@ -29,7 +29,7 @@ public class Application {
     }
 
     @GetMapping("/posts")
-    public ResponseEntity<List<Post>> index(@RequestParam(defaultValue = "10") Integer limit) {
+    public ResponseEntity<List<Post>> index() {
         var result = posts;
 
         return ResponseEntity.ok()
@@ -70,8 +70,8 @@ public class Application {
             return ResponseEntity.status(HttpStatus.NO_CONTENT).body(post);
         }
 
-            maybePost.get().setBody(post.getBody());
-            maybePost.get().setTitle(post.getTitle());
+        maybePost.get().setTitle(post.getTitle());
+        maybePost.get().setBody(post.getBody());
 
             posts.add(maybePost.get());
 
