@@ -46,23 +46,34 @@ public class Application {
     }
 
     @PostMapping("/posts")
-    public Post create(@RequestBody Post post) {
-        posts.add(post);
-        return post;
+    public ResponseEntity<Post> create(@RequestBody Post post) {
+        Post maybePost = new Post();
+
+        maybePost.setId(post.getId());
+        maybePost.setTitle(post.getTitle());
+        maybePost.setBody(post.getBody());
+
+        posts.add(maybePost);
+
+        URI location = URI.create("/posts");
+
+        return ResponseEntity.created(location).body(maybePost);
     }
 
     @PutMapping("/posts/{id}")
-    public Post update(@PathVariable String id, @RequestBody Post data) {
+    public ResponseEntity<Post> update(@PathVariable String id, @RequestBody Post post) {
         var maybePost = posts.stream()
                 .filter(p -> p.getBody().equals(id))
                 .findFirst();
-        if (maybePost.isPresent()) {
-            var post = maybePost.get();
-            post.setId(data.getId());
-            post.setBody(data.getBody());
-            post.setTitle(data.getTitle());
+
+        if (maybePost.isEmpty()) {
+            return ResponseEntity.status(HttpStatus.NO_CONTENT).body(post);
         }
-        return data;
+
+            post.setBody(post.getBody());
+            post.setTitle(post.getTitle());
+
+        return ResponseEntity.ok().body(maybePost.get());
     }
 
     @DeleteMapping("/posts/{id}")
