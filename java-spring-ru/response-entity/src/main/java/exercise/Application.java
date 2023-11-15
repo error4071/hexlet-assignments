@@ -70,10 +70,10 @@ public class Application {
             return ResponseEntity.status(HttpStatus.NO_CONTENT).body(post);
         }
 
-        maybePost.get().setTitle(post.getTitle());
-        maybePost.get().setBody(post.getBody());
+    maybePost.get().setTitle(post.getTitle());
+    maybePost.get().setBody(post.getBody());
 
-            posts.add(maybePost.get());
+        posts.add(maybePost.get());
 
         return ResponseEntity.ok().body(maybePost.get());
     }
