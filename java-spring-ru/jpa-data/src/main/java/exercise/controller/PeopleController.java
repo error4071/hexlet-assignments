@@ -21,16 +21,17 @@ public class PeopleController {
     private PersonRepository personRepository;
 
     @GetMapping(path = "/{id}")
+    @ResponseStatus(HttpStatus.OK)
     public Person show(@PathVariable long id) {
         return personRepository.findById(id).get();
     }
 
-    @GetMapping("/people")
+    @GetMapping(path = "")
     @ResponseStatus(HttpStatus.OK)
-    public List<Person> index() {
+    public Iterable<Person> index() {
         return personRepository.findAll();
     }
-    @PostMapping("/people")
+    @PostMapping(path = "")
     @ResponseStatus(HttpStatus.CREATED)
     public Person create(@RequestBody Map<String, String> newPerson) {
         Person person = new Person();
@@ -39,7 +40,8 @@ public class PeopleController {
         return personRepository.save(person);
     }
 
-    @DeleteMapping("/people/{id}")
+    @DeleteMapping(path = "/{id}")
+    @ResponseStatus(HttpStatus.OK)
     public void destroy(@PathVariable Long id) {
     personRepository.deleteById(id);
     }
