@@ -10,7 +10,7 @@ import lombok.Getter;
 import lombok.Setter;
 
 @Entity
-@Table()
+@Table(name = "users")
 @Setter
 @Getter
 @EqualsAndHashCode(onlyExplicitlyIncluded = true)
@@ -20,7 +20,6 @@ public class Person {
     @EqualsAndHashCode.Include
     private Long Id;
 
-    @Column(unique = true)
     private String firstName;
 
     private String lastName;
