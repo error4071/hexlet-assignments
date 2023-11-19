@@ -26,7 +26,7 @@ public class ProductsController {
     public List<Product> index(@RequestParam(required = false, defaultValue = "0") Long min,
                                @RequestParam(required = false, defaultValue = "999") Long max) {
 
-        return productRepository.findAllByPrice(min, max, Sort.by(Sort.Direction.ASC, "price"));
+        return productRepository.findAllByPrice(min, max, Sort.by(Sort.Order.asc("price")));
     }
     // ENd
 
