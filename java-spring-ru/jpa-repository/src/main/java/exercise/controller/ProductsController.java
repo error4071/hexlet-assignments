@@ -22,7 +22,7 @@ public class ProductsController {
     private ProductRepository productRepository;
 
     @GetMapping(path = "")
-    public  List<Product> index(@RequestParam(required = false) Long minPrice, @RequestParam(required = false) Long maxPrice) {
+    public  List<Product> index(@RequestParam(required = false, defaultValue = "0") Long minPrice, @RequestParam(required = false, defaultValue = "999") Long maxPrice) {
         return productRepository.findAllByPrice(minPrice, maxPrice, Sort.by(Sort.Order.asc("price")));
     }
 
