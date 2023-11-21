@@ -21,14 +21,13 @@ public class ProductsController {
     @Autowired
     private ProductRepository productRepository;
 
-    // Begin
+
     @GetMapping(path = "")
     public List<Product> index(@RequestParam(required = false, defaultValue = "0") Long min,
                                @RequestParam(required = false, defaultValue = "999") Long max) {
 
         return productRepository.findAllByPrice(min, max, Sort.by(Sort.Order.asc("price")));
     }
-    // ENd
 
     @GetMapping(path = "/{id}")
     public Product show(@PathVariable long id) {
