@@ -31,30 +31,29 @@ public class CommentsController {
         return commentRepository.findAll();
     }
 
-    @GetMapping(path = "{id}")
-    @ResponseStatus(HttpStatus.OK)
+    @GetMapping(path = "/{id}")
     public Comment show(@PathVariable long id) {
-        return commentRepository.findById(id).get();
+        return commentRepository.findById(id)
+                .orElseThrow(() -> new ResourceNotFoundException("Comment with id " + id + " not found."));
     }
 
     @PostMapping(path = "")
+    @ResponseStatus(HttpStatus.CREATED)
     public Comment create(@RequestBody Comment comment) {
         return commentRepository.save(comment);
     }
 
-    @PutMapping(path = "{id}")
+    @PutMapping(path = "/{id}")
     public Comment update(@PathVariable long id, @RequestBody Comment comData) {
-        var maybeComment = commentRepository.findById(id)
+        Comment maybeComment = commentRepository.findById(id)
                 .orElseThrow(() -> new RuntimeException("Comment with id " + id + " not found"));
 
         maybeComment.setBody(comData.getBody());
 
-        commentRepository.save(maybeComment);
-
-        return maybeComment;
+        return commentRepository.save(maybeComment);
     }
 
-    @DeleteMapping(path = "{id}")
+    @DeleteMapping(path = "/{id}")
     public void delete(@PathVariable long id) {
         commentRepository.deleteByPostId(id);
     }

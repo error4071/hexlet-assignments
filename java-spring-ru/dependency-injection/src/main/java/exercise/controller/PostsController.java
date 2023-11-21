@@ -29,22 +29,24 @@ public class PostsController {
         return postRepository.findAll();
     }
 
-    @GetMapping(path = "{id}")
-    @ResponseStatus(HttpStatus.OK)
-    public Optional<Post> show(@PathVariable long id) {
-        return postRepository.findById(id);
+    @GetMapping(path = "/{id}")
+    public Post show(@PathVariable long id) {
+        return postRepository.findById(id)
+                .orElseThrow(() -> new ResourceNotFoundException("Post with id " + id + " not found."));
     }
 
     @PostMapping(path = "")
+    @ResponseStatus(HttpStatus.CREATED)
     public Post create(@RequestBody Post post) {
         return postRepository.save(post);
     }
 
-    @PutMapping(path = "{id}")
+    @PutMapping(path = "/{id}")
     public Post update(@PathVariable long id, @RequestBody Post postData) {
-        var maybePost = postRepository.findById(id)
+        Post maybePost = postRepository.findById(id)
                 .orElseThrow(() -> new ResourceNotFoundException("Post with id " + id + " not found"));
 
+        maybePost.setTitle(postData.getTitle());
         maybePost.setBody(postData.getBody());
 
         postRepository.save(maybePost);
@@ -52,7 +54,7 @@ public class PostsController {
         return maybePost;
     }
 
-    @DeleteMapping(path = "{id}")
+    @DeleteMapping(path = "/{id}")
     public void delete(@PathVariable long id) {
         postRepository.deleteById(id);
         commentRepository.deleteByPostId(id);
