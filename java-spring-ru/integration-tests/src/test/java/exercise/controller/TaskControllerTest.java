@@ -52,8 +52,8 @@ public class TaskControllerTest {
         taskRepository.save(task);
 
         var data = new HashMap<>();
-        data.put("title", "one two three");
-        data.put("description", "three two one");
+        data.put("title", "Clean the mess");
+        data.put("description", "Do something!");
 
         var request = put("/tasks" + task.getId())
                 .contentType(MediaType.APPLICATION_JSON)
