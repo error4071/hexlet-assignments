@@ -55,7 +55,7 @@ public class TaskControllerTest {
         data.put("title", "one two three");
         data.put("description", "three two one");
 
-        var request  = put("/tasks" + task.getId())
+        var request = put("/tasks" + task.getId())
                 .contentType(MediaType.APPLICATION_JSON)
                 .content(om.writeValueAsString(data));
 
@@ -66,5 +66,22 @@ public class TaskControllerTest {
         assertThat(task.getTitle()).isEqualTo(("one two three"));
     }
 
+    @Test
+    public void create() throws Exception {
+        var task = new Task();
 
+        task.setTitle(faker.lorem().word());
+        task.setDescription(faker.lorem().paragraph());
+
+        var request = post("//tasks" + task.getId())
+                .contentType(MediaType.APPLICATION_JSON)
+                .content(om.writeValueAsString(task));
+
+        mockMvc.perform(request)
+                .andExpect(status().isCreated());
+
+        var taskCreate = taskRepository.findByTitle(task.getTitle()).get();
+        assertThat(task.getTitle()).isEqualTo(("three two one"));
+
+    }
 }
