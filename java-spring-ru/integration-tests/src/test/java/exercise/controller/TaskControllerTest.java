@@ -63,17 +63,17 @@ public class TaskControllerTest {
                 .andExpect(status().isOk());
 
         task = taskRepository.findById(task.getId()).get();
-        assertThat(task.getTitle()).isEqualTo(("one two three"));
+        assertThat(task.getTitle()).isEqualTo(("Clean the mess"));
     }
 
     @Test
-    public void create() throws Exception {
+    public void testCreate() throws Exception {
         var task = new Task();
 
         task.setTitle(faker.lorem().word());
         task.setDescription(faker.lorem().paragraph());
 
-        var request = post("/tasks/")
+        var request = post("/tasks")
                 .contentType(MediaType.APPLICATION_JSON)
                 .content(om.writeValueAsString(task));
 
