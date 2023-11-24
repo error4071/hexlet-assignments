@@ -73,7 +73,7 @@ public class TaskControllerTest {
         task.setTitle(faker.lorem().word());
         task.setDescription(faker.lorem().paragraph());
 
-        var request = post("//tasks" + task.getId())
+        var request = post("//tasks")
                 .contentType(MediaType.APPLICATION_JSON)
                 .content(om.writeValueAsString(task));
 
@@ -81,7 +81,7 @@ public class TaskControllerTest {
                 .andExpect(status().isCreated());
 
         var taskCreate = taskRepository.findByTitle(task.getTitle()).get();
-        assertThat(task.getTitle()).isEqualTo(("three two one"));
+        assertThat(taskCreate.getTitle()).isEqualTo((task.getTitle()));
 
     }
 }
