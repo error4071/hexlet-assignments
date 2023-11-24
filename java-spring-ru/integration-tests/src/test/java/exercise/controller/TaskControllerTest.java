@@ -55,7 +55,7 @@ public class TaskControllerTest {
         data.put("title", "Clean the mess");
         data.put("description", "Do something!");
 
-        var request = put("/tasks" + task.getId())
+        var request = put("/tasks/" + task.getId())
                 .contentType(MediaType.APPLICATION_JSON)
                 .content(om.writeValueAsString(data));
 
@@ -73,7 +73,7 @@ public class TaskControllerTest {
         task.setTitle(faker.lorem().word());
         task.setDescription(faker.lorem().paragraph());
 
-        var request = post("//tasks")
+        var request = post("/tasks/")
                 .contentType(MediaType.APPLICATION_JSON)
                 .content(om.writeValueAsString(task));
 
