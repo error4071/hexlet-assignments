@@ -1,0 +1,38 @@
+package exercise.controller;
+
+import exercise.repository.CommentRepository;
+import lombok.Getter;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.web.JsonPath;
+import org.springframework.http.HttpStatus;
+import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
+
+import exercise.model.Post;
+import exercise.repository.PostRepository;
+import exercise.exception.ResourceNotFoundException;
+import exercise.dto.PostDTO;
+import exercise.dto.CommentDTO;
+
+@RestController
+@RequestMapping("/posts")
+public class PostsController {
+
+    @Autowired
+    private PostRepository postRepository;
+
+    @GetMapping(path = "")
+    @ResponseStatus(HttpStatus.OK)
+    public Post index(@PathVariable Long id) {
+        var post = postRepository.findById(id)
+                .orElseThrow(() -> new ResourceNotFoundException("Not found"));
+        return post;
+    }
+
+    @GetMapping(path = "/{id}")
+    @ResponseStatus(HttpStatus.OK)
+    public Post show(@PathVariable Long id) {
+        return postRepository.findById(id).get();
+    }
+}
