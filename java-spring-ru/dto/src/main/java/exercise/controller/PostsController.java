@@ -24,10 +24,16 @@ public class PostsController {
 
     @GetMapping(path = "")
     @ResponseStatus(HttpStatus.OK)
-    public Post index(@PathVariable Long id) {
+    public PostDTO index(@PathVariable Long id) {
         var post = postRepository.findById(id)
                 .orElseThrow(() -> new ResourceNotFoundException("Not found"));
-        return post;
+
+        var dto = new PostDTO();
+        dto.setId(post.getId());
+        dto.setTitle(post.getTitle());
+        dto.setBody(post.getBody());
+
+        return dto;
     }
 
     @GetMapping(path = "/{id}")
