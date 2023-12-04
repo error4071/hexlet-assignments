@@ -15,11 +15,7 @@ import static jakarta.persistence.GenerationType.IDENTITY;
 @Getter
 
 public class PostDTO {
-    @Id
-    @GeneratedValue(strategy = IDENTITY)
     private Long id;
-
-    @Column(unique = true)
     private String title;
     private String body;
     private List<CommentDTO> comments;
