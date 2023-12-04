@@ -58,7 +58,7 @@ public class PostsController {
         var commentDTO = new CommentDTO();
 
         commentDTO.setId(comment.getId());
-        commentDTO.setBody(commentDTO.getBody());
+        commentDTO.setBody(comment.getBody());
 
         return commentDTO;
     }
