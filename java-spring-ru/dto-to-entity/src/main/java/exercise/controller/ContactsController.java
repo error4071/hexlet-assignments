@@ -38,7 +38,7 @@ public class ContactsController {
     private Contact toEntity(ContactCreateDTO contactDTO) {
         var contact = new Contact();
         contact.setFirstName(contact.getFirstName());
-        contact.setLastName(contactDTO.getLastName());
+        contact.setLastName(contact.getLastName());
         contact.setPhone(contact.getPhone());
 
         return contact;
