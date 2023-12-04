@@ -1,0 +1,46 @@
+package exercise.controller;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.*;
+import org.springframework.http.HttpStatus;
+
+import exercise.model.Contact;
+import exercise.repository.ContactRepository;
+import exercise.dto.ContactDTO;
+import exercise.dto.ContactCreateDTO;
+
+@RestController
+@RequestMapping("/contacts")
+public class ContactsController {
+
+    @Autowired
+    private ContactRepository contactRepository;
+
+    @PostMapping(path = "")
+    @ResponseStatus(HttpStatus.CREATED)
+    ContactDTO create(@RequestBody ContactCreateDTO contactData) {
+        var contact = toEntity(contactData);
+        contactRepository.save(contact);
+        var contactDTO = toDTO(contact);
+
+        return contactDTO;
+    }
+
+    private ContactDTO toDTO(Contact contact) {
+        var dto = new ContactDTO();
+        dto.setFirstName(contact.getFirstName());
+        dto.setLastName(contact.getLastName());
+        dto.setPhone(contact.getPhone());
+
+        return dto;
+    }
+
+    private Contact toEntity(ContactCreateDTO contactDTO) {
+        var contact = new Contact();
+        contact.setFirstName(contact.getFirstName());
+        contact.setLastName(contactDTO.getLastName());
+        contact.setPhone(contact.getPhone());
+
+        return contact;
+    }
+}
