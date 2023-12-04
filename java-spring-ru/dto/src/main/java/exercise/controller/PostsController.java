@@ -22,9 +22,9 @@ import exercise.dto.CommentDTO;
 public class PostsController {
 
     @Autowired
-    private PostRepository postRepository;
+    PostRepository postRepository;
     @Autowired
-    private CommentRepository commentRepository;
+    CommentRepository commentRepository;
 
     @GetMapping
     Iterable<PostDTO> index() {
@@ -33,7 +33,7 @@ public class PostsController {
 
     @GetMapping(path = "/{id}")
     public PostDTO index(@PathVariable Long id) {
-        var post = postRepository.findById(id)
+        Post post = postRepository.findById(id)
                 .orElseThrow(() -> new ResourceNotFoundException("Post with id " + id + "not found"));
 
         return toDTO(post);
