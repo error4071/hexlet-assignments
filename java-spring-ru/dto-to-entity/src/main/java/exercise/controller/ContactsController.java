@@ -18,7 +18,7 @@ public class ContactsController {
 
     @PostMapping(path = "")
     @ResponseStatus(HttpStatus.CREATED)
-    ContactDTO create(@RequestBody ContactCreateDTO contactData) {
+    public ContactDTO create(@RequestBody ContactCreateDTO contactData) {
         var contact = toEntity(contactData);
         contactRepository.save(contact);
         var contactDTO = toDTO(contact);
@@ -28,6 +28,7 @@ public class ContactsController {
 
     private ContactDTO toDTO(Contact contact) {
         var dto = new ContactDTO();
+        dto.setId(contact.getId());
         dto.setFirstName(contact.getFirstName());
         dto.setLastName(contact.getLastName());
         dto.setPhone(contact.getPhone());
