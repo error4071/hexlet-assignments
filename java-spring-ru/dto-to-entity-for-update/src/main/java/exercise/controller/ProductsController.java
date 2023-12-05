@@ -61,8 +61,8 @@ public class ProductsController {
         var product = productRepository.findById(id)
                 .orElseThrow(() -> new ResourceNotFoundException("Product with id " + id + " not found"));
 
-        product.setTitle(product.getTitle());
-        product.setPrice(product.getPrice());
+        product.setTitle(productData.getTitle());
+        product.setPrice(productData.getPrice());
 
         return toDTO(productRepository.save(product));
     }
