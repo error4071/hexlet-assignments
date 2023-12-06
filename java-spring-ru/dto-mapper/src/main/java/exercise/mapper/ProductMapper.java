@@ -21,7 +21,7 @@ public abstract class ProductMapper {
     @Mapping(target = "cost", source = "price")
 
     @InheritConfiguration
-    public abstract void update (ProductUpdateDTO dto, @MappingTarget Product model);
+    public abstract void update(ProductUpdateDTO dto, @MappingTarget Product model);
     @Mapping(target = "name", source = "title")
     @Mapping(target = "cost", source = "price")
     @Mapping(target = "barcode", source = "vendorCode")
