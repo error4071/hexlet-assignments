@@ -15,13 +15,15 @@ public abstract class ProductMapper {
     @Mapping(target = "title", source = "name")
     @Mapping(target = "price", source = "cost")
     @Mapping(target = "vendorCode", source = "barcode")
+
     public abstract Product map(ProductCreateDTO dto);
+    @Mapping(target = "name", source = "title")
+    @Mapping(target = "cost", source = "price")
 
     @InheritConfiguration
     public abstract void update (ProductUpdateDTO dto, @MappingTarget Product model);
-
-    @Mapping(target = "title", source = "name")
-    @Mapping(target = "price", source = "cost")
-    @Mapping(target = "vendorCode", source = "barcode")
+    @Mapping(target = "name", source = "title")
+    @Mapping(target = "cost", source = "price")
+    @Mapping(target = "barcode", source = "vendorCode")
     public abstract ProductDTO map(Product model);
 }
