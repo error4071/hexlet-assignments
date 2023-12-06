@@ -17,7 +17,6 @@ public abstract class ProductMapper {
     @Mapping(target = "barcode", source = "vendorCode")
 
     public abstract Product map(ProductCreateDTO dto);
-    @Mapping(target = "name", source = "title")
     @Mapping(target = "cost", source = "price")
 
     public abstract void update(ProductUpdateDTO dto, @MappingTarget Product model);
