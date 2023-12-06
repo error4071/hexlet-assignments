@@ -1,5 +1,6 @@
 package exercise.controller;
 
+import exercise.model.Product;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -55,7 +56,7 @@ public class ProductsController {
     @PutMapping(path = "/{id}")
     @ResponseStatus(HttpStatus.OK)
     ProductDTO update(@RequestBody ProductUpdateDTO productData, @PathVariable Long id) {
-        var product = productRepository.findById(id)
+        Product product = productRepository.findById(id)
                 .orElseThrow(() -> new ResourceNotFoundException("Product with id " + id + " not found"));
         productMapper.update(productData, product);
         productRepository.save(product);
