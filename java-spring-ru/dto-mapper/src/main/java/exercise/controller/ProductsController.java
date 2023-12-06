@@ -48,11 +48,8 @@ public class ProductsController {
 
     @PostMapping(path = "")
     @ResponseStatus(HttpStatus.CREATED)
-    ProductDTO create(@RequestBody ProductCreateDTO productData) {
-        var product = productMapper.map(productData);
-        productRepository.save(product);
-        var productDTO = productMapper.map(product);
-        return productDTO;
+    ProductDTO create(@RequestBody ProductCreateDTO productCreateDTO) {
+        return productMapper.map(productRepository.save(productMapper.map(productCreateDTO)));
     }
 
     @PutMapping(path = "/{id}")
