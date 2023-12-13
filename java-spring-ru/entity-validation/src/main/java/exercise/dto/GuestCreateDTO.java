@@ -26,7 +26,7 @@ public class GuestCreateDTO {
     @Size(min = 4, max = 4)
     private String clubCard;
 
-    @Valid
+    @Future
     private LocalDate cardValidUntil;
 }
 // END
