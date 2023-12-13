@@ -44,7 +44,7 @@ public class Guest {
     private String clubCard;
 
     @Valid
-    private LocalDate clubValidUntil;
+    private LocalDate cardValidUntil;
     // END
 
     @CreatedDate
