@@ -1,7 +1,9 @@
 package exercise.dto;
 
-import jakarta.validation.Valid;
-import jakarta.validation.constraints.*;
+import jakarta.validation.constraints.Email;
+import jakarta.validation.constraints.Future;
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.Pattern;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -18,12 +20,10 @@ public class GuestCreateDTO {
     @Email
     private String email;
 
-    @NotNull
-    @Size(min = 11, max = 13)
+    @Pattern(regexp = "\\+[0-9]{11,13}")
     private String phoneNumber;
 
-    @NotNull
-    @Size(min = 4, max = 4)
+    @Pattern(regexp = "\\d{4}")
     private String clubCard;
 
     @Future
