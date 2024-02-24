@@ -1,6 +1,7 @@
 package exercise.controller;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 import exercise.dto.TaskCreateDTO;
 import exercise.dto.TaskDTO;
