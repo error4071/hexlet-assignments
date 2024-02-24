@@ -44,6 +44,6 @@ public class User {
     @CreatedDate
     private LocalDate createdAt;
 
-    @OneToMany(mappedBy = "guests", cascade = CascadeType.ALL, orphanRemoval = true)
-    private List<User> posts = new ArrayList<>();
+    @OneToMany(mappedBy = "assignee", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<Task> tasks;
 }
