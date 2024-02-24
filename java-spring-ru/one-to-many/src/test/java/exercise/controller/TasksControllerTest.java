@@ -143,7 +143,7 @@ class TasksControllerTest {
         taskRepository.save(testTask);
         var request = delete("/tasks/{id}", testTask.getId());
         mockMvc.perform(request)
-                .andExpect(status().isNoContent());
+                .andExpect(status().isOk());
 
         assertThat(taskRepository.existsById(testTask.getId())).isFalse();
     }
