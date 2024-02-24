@@ -43,7 +43,8 @@ public class Task {
     @NotNull
     private Long assigneeId;
 
-    @OneToMany(mappedBy = "assignees", cascade = CascadeType.ALL, orphanRemoval = true)
-    private List<Task> posts = new ArrayList<>();
+    @ManyToOne(fetch = FetchType.EAGER, targetEntity = User.class)
+    private User assignee;
+
     // END
 }
