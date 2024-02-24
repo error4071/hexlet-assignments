@@ -41,7 +41,7 @@ public class Task {
     // BEGIN
     @ManyToOne
     @NotNull
-    private Long assigneeId;
+    private Long assignee;
 
     @OneToMany(mappedBy = "assignees", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<Task> posts = new ArrayList<>();
