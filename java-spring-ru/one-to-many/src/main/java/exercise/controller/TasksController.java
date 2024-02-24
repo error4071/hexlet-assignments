@@ -6,13 +6,12 @@ import java.util.stream.Collectors;
 import exercise.dto.TaskCreateDTO;
 import exercise.dto.TaskDTO;
 import exercise.dto.TaskUpdateDTO;
-import exercise.dto.UserDTO;
 import exercise.mapper.TaskMapper;
 import exercise.model.Task;
 import exercise.repository.UserRepository;
+import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -23,17 +22,14 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
-import exercise.exception.ResourceNotFoundException;
 import exercise.repository.TaskRepository;
-import jakarta.validation.Valid;
 
 @RestController
 @RequestMapping("/tasks")
 public class TasksController {
-
     // BEGIN
     @Autowired
-    private TaskRepository taskRepository;
+    TaskRepository taskRepository;
 
     @Autowired
     TaskMapper taskMapper;
@@ -41,32 +37,34 @@ public class TasksController {
     @Autowired
     UserRepository userRepository;
 
-    @GetMapping("/tasks")
+    @GetMapping
     @ResponseStatus(HttpStatus.OK)
     Iterable<TaskDTO> index() {
         return taskRepository.findAll().stream().map(x -> taskMapper.map(x)).collect(Collectors.toList());
     }
 
-    @GetMapping("/tasks/{id}")
+    @PostMapping
+    @ResponseStatus(HttpStatus.CREATED)
+    TaskDTO create(@Valid @RequestBody TaskCreateDTO taskCreateDTO) {
+        Task task = taskMapper.map(taskCreateDTO);
+
+        task.setAssignee(userRepository.findById(taskCreateDTO.getAssigneeId()).get());
+
+        return taskMapper.map(taskRepository.save(task));
+    }
+
+    @GetMapping("/{id}")
     @ResponseStatus(HttpStatus.OK)
     TaskDTO show(@PathVariable Long id) {
-        var task = taskRepository.findById(id)
-                .orElseThrow(() -> new ResourceNotFoundException("Not found"));
+        Task task = taskRepository
+                .findById(id).orElseThrow();
         TaskDTO taskDTO = taskMapper.map(task);
         taskDTO.setAssigneeId(task.getAssignee().getId());
+
         return taskDTO;
     }
 
-    @PostMapping("/tasks")
-    @ResponseStatus(HttpStatus.CREATED)
-    TaskDTO create(@Valid @RequestBody TaskCreateDTO taskCreateDTO) {
-        var task = taskMapper.map(taskCreateDTO);
-        task.setAssignee(userRepository.findById(taskCreateDTO.getAssigneeId()).get());
-        taskRepository.save(task);
-        return taskMapper.map(task);
-    }
-
-    @PutMapping("/tasks/{id}")
+    @PutMapping("/{id}")
     TaskDTO update(@PathVariable Long id, @RequestBody TaskUpdateDTO taskUpdateDTO) {
         Task taskFromBase = taskRepository.findById(id).orElseThrow();
 
@@ -78,8 +76,8 @@ public class TasksController {
         return taskMapper.map(taskFromBase);
     }
 
-    @DeleteMapping("/tasks/{id}")
-    public void destroy(@PathVariable Long id) {
+    @DeleteMapping("/{id}")
+    void delete(@PathVariable Long id) {
         taskRepository.deleteById(id);
     }
     // END
