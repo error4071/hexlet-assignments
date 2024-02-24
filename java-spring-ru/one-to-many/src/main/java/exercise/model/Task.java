@@ -39,10 +39,6 @@ public class Task {
     private LocalDate updatedAt;
 
     // BEGIN
-    @ManyToOne
-    @NotNull
-    private Long assigneeId;
-
     @ManyToOne(fetch = FetchType.EAGER, targetEntity = User.class)
     private User assignee;
 
