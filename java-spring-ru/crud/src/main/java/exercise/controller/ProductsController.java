@@ -4,6 +4,7 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.stream.Collectors;
 
+import exercise.mapper.JsonNullableMapper;
 import exercise.dto.ProductCreateDTO;
 import exercise.dto.ProductDTO;
 import exercise.dto.ProductUpdateDTO;
@@ -68,17 +69,36 @@ public class ProductsController {
         return productDto;
     }
 
-    @PutMapping("/{id}")
-    public ProductDTO update(@PathVariable long id, @RequestBody ProductUpdateDTO productUpdateDTO) {
+    @PutMapping(path = "/{id}")
+    @ResponseStatus(HttpStatus.OK)
+    public ResponseEntity<ProductDTO> update(@Valid @RequestBody ProductUpdateDTO productData, @PathVariable Long id) {
+        if (categoryRepository.findById(productData.getCategoryId().get()).isPresent()) {
 
-        var product = productRepository.findById(id)
-                .orElseThrow(() -> new ResourceNotFoundException("400 Bad request"));
+            var product = productRepository.findById(id)
+                    .orElseThrow(() -> new ResourceNotFoundException("Product with id " + id + " not found"));
 
-        productMapper.update(productUpdateDTO, product);
-        productRepository.save(product);
+            var category = categoryRepository.findById(productData.getCategoryId().get())
+                    .orElseThrow(() -> new ResourceNotFoundException("Category with id " + id + " not found"));
 
-        return productMapper.map(product);
+            product.setCategory(category);
+
+            if (JsonNullableMapper.isPresent(productData.getPrice())) {
+                product.setPrice(JsonNullableMapper.unwrap(productData.getPrice()));
+            }
+
+            if (JsonNullableMapper.isPresent(productData.getTitle())) {
+                product.setTitle(JsonNullableMapper.unwrap(productData.getTitle()));
+            }
+
+            productRepository.save(product);
+
+            return ResponseEntity.ok(productMapper.map(product));
+
+        } else {
+            return ResponseEntity.badRequest().body(new ProductDTO());
+        }
     }
+
 
     @DeleteMapping
     public void delete(@PathVariable Long id) {

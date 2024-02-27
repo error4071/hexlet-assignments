@@ -14,12 +14,12 @@ public abstract class JsonNullableMapper {
         return JsonNullable.of(entity);
     }
 
-    public <T> T unwrap(JsonNullable<T> jsonNullable) {
+    public static <T> T unwrap(JsonNullable<T> jsonNullable) {
         return jsonNullable == null ? null : jsonNullable.orElse(null);
     }
 
     @Condition
-    public <T> boolean isPresent(JsonNullable<T> nullable) {
+    public static <T> boolean isPresent(JsonNullable<T> nullable) {
         return nullable != null && nullable.isPresent();
     }
 }
