@@ -24,6 +24,7 @@ public abstract class ProductMapper {
     public abstract Product map(ProductCreateDTO dto);
 
     @Mapping(source = "category.id", target = "categoryId")
+    @Mapping(source = "category.name", target = "categoryName")
     public abstract ProductDTO map(Product model);
 
     public abstract void update(ProductUpdateDTO dto, @MappingTarget Product model);
