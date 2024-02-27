@@ -100,8 +100,9 @@ public class ProductsController {
     }
 
 
-    @DeleteMapping
-    public void delete(@PathVariable Long id) {
+    @DeleteMapping(path = "/{id}")
+    @ResponseStatus(HttpStatus.NO_CONTENT)
+    public void destroy(@PathVariable Long id) {
         productRepository.deleteById(id);
     }
     // END
