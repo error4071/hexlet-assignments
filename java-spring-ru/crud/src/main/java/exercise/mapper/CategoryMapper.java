@@ -19,10 +19,10 @@ import org.mapstruct.Mapping;
 )
 
 public abstract class CategoryMapper {
-    @Mapping(target = "category", source = "categoryId")
+    @Mapping(target = "name", source = "nameId")
     public abstract Category map(CategoryCreateDTO dto);
 
-    @Mapping(source = "category.id", target = "categoryId")
+    @Mapping(source = "name.id", target = "nameId")
     public abstract CategoryDTO map(Category model);
 }
 
