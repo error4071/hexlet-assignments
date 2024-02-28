@@ -36,7 +36,7 @@ public class ProductSpecification {
     }
 
     private Specification<Product> withRatingGt(Double ratingGt) {
-        return (root, query, cb) -> ratingGt == null ? cb.conjunction() : cb.greaterThan(root.get("rating"), ratingGt);
+        return (root, query, cb) -> ratingGt == null ? cb.conjunction() : cb.ge(root.get("rating"), ratingGt);
     }
 }
 

@@ -1,6 +1,7 @@
 package exercise.controller;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 import exercise.dto.ProductCreateDTO;
 import exercise.dto.ProductDTO;
@@ -45,13 +46,11 @@ public class ProductsController {
 
     @GetMapping("")
 
-    public Page<ProductDTO> index(ProductParamsDTO params, @RequestParam(defaultValue = "1") int page) {
+    public List<ProductDTO> index(ProductParamsDTO params, @RequestParam(defaultValue = "1") int page) {
         var spec = productSpecification.build(params);
         // Возвращается Page<PostDTO>
         var product = productRepository.findAll(spec, PageRequest.of(page - 1, 10));
-        var result = product.map(productMapper::map);
-
-        return result;
+        return product.map(productMapper::map).stream().collect(Collectors.toList());
     }
 
     // END
