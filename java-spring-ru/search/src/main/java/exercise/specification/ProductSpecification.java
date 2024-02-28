@@ -19,6 +19,10 @@ public class ProductSpecification {
                 .and(withTitleCont(params.getTitleCont()));
     }
 
+    private Specification<Product> withTitleCont(String titleCont) {
+        return (root, query, cb) -> titleCont == null ? cb.conjunction() : cb.equal(root.get("title").get("cont"), titleCont);
+    }
+
     private Specification<Product> withCategoryId(Long categoryId) {
         return (root, query, cb) -> categoryId == null ? cb.conjunction() : cb.equal(root.get("category").get("id"), categoryId);
     }
@@ -33,10 +37,6 @@ public class ProductSpecification {
 
     private Specification<Product> withRatingGt(Double ratingGt) {
         return (root, query, cb) -> ratingGt == null ? cb.conjunction() : cb.equal(root.get("rating").get("gt"), ratingGt);
-    }
-
-    private Specification<Product> withTitleCont(String titleCont) {
-        return (root, query, cb) -> titleCont == null ? cb.conjunction() : cb.equal(root.get("title").get("cont"), titleCont);
     }
 }
 
