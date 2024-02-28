@@ -44,7 +44,6 @@ public class ProductsController {
     private ProductSpecification productSpecification;
 
     @GetMapping("/posts")
-    @ResponseStatus(HttpStatus.OK)
     public Page<ProductDTO> index(ProductParamsDTO params, @RequestParam(defaultValue = "1") int page) {
         var spec = productSpecification.build(params);
         // Возвращается Page<PostDTO>
