@@ -47,7 +47,7 @@ public class BooksController {
     }
 
     @GetMapping("/{id}")
-    @ResponseStatus(HttpStatus.CREATED)
+    @ResponseStatus(HttpStatus.OK)
     public BookDTO show(@PathVariable Long id) {
         var books = bookRepository.findById(id)
                 .orElseThrow(() -> new ResourceNotFoundException("400 Bad request"));
