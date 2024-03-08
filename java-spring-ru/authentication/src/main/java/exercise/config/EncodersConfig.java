@@ -18,7 +18,6 @@ import org.springframework.security.oauth2.jwt.NimbusJwtDecoder;
 import org.springframework.security.oauth2.jwt.NimbusJwtEncoder;
 
 // BEGIN
-
 @Configuration
 public class EncodersConfig {
 
@@ -31,7 +30,7 @@ public class EncodersConfig {
     }
 
     @Bean
-    JwtEncoder jwtEncoder() {
+    public JwtEncoder jwtEncoder() {
         JWK jwk = new RSAKey.Builder(rsaKeys.getPublicKey()).privateKey(rsaKeys.getPrivateKey()).build();
         JWKSource<SecurityContext> jwks = new ImmutableJWKSet<>(new JWKSet(jwk));
         return new NimbusJwtEncoder(jwks);
@@ -42,5 +41,4 @@ public class EncodersConfig {
         return NimbusJwtDecoder.withPublicKey(rsaKeys.getPublicKey()).build();
     }
 }
-
 // END

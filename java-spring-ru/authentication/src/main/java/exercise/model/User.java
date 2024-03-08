@@ -53,8 +53,7 @@ public class User implements BaseEntity, UserDetails {
     @OneToMany(mappedBy = "author", cascade = CascadeType.ALL)
     private List<Article> articles = new ArrayList<>();
 
-    //BEGIN
-
+    // BEGIN
     @Override
     public String getUsername() {
         return email;
@@ -89,5 +88,5 @@ public class User implements BaseEntity, UserDetails {
     public boolean isCredentialsNonExpired() {
         return true;
     }
-//END
+    // END
 }

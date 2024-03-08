@@ -22,7 +22,6 @@ import org.springframework.security.web.servlet.util.matcher.MvcRequestMatcher;
 import org.springframework.web.servlet.handler.HandlerMappingIntrospector;
 
 // BEGIN
-
 @Configuration
 @EnableWebSecurity
 public class SecurityConfig {
@@ -66,5 +65,4 @@ public class SecurityConfig {
         return provider;
     }
 }
-
 // END
