@@ -1,0 +1,14 @@
+# BEGIN
+
+spring:
+  config:
+    activate:
+      on-profile: staging
+  datasource:
+    url: jdbc:h2:file:./test
+    username: admin
+    password: admin
+server:
+  port: 8080
+
+# END
