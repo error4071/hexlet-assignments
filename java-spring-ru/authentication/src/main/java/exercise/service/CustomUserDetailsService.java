@@ -34,7 +34,7 @@ public class CustomUserDetailsService implements UserDetailsManager {
     }
 
     @Override
-    public void deleteUser(String user) {
+    public void deleteUser(String username) {
         throw new UnsupportedOperationException("Unimplemented method 'deleteUser'");
     }
 
