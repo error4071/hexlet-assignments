@@ -51,16 +51,14 @@ public class ArticleController {
     @Autowired
     private JWTUtils jwtUtils;
 
-    @PostMapping("/login")
-    public String create(@RequestBody AuthRequest authRequest) {
-        var authentication = new UsernamePasswordAuthenticationToken(
-                authRequest.getUsername(), authRequest.getPassword());
-
-        authenticationManager.authenticate(authentication);
-
-        var token = jwtUtils.generateToken(authRequest.getUsername());
-        return token;
-
+    @PostMapping("")
+    @ResponseStatus(HttpStatus.CREATED)
+    public ArticleDTO create(@Valid @RequestBody ArticleCreateDTO dto) {
+        var user = userUtils.getCurrentUser();
+        var article = articleMapper.map(dto);
+        article.setAuthor(user);
+        articleRepository.save(article);
+        return articleMapper.map(article);
     }
 
     // END
